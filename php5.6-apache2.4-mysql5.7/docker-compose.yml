@@ -1,0 +1,28 @@
+version: '3'
+services:
+  app:
+    container_name: php
+    build:
+      context: ./php5.6
+      dockerfile: dockerfile
+    volumes:
+      - ./php5.6/php.ini:/usr/local/etc/php/php.ini
+      - ./html:/var/www/html
+    ports:
+      - 9999:80
+    depends_on:
+      - db
+  db:
+    container_name: mysql
+    image: mysql:5.6
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "13306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_DATABASE: test
+    volumes:
+      - ./db:/var/lib/mysql
+      - ./db_initdb.d:/docker-entrypoint-initdb.d
