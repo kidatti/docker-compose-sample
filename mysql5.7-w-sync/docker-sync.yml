@@ -1,0 +1,6 @@
+version: '2'
+syncs:
+  mysql57-w-sync-db:
+    src: './db'
+  mysql57-w-sync-db-init:
+    src: './db-init'

@@ -1,0 +1,11 @@
+version: '3'
+services:
+  mysql57-w-sync:
+    volumes:
+      - mysql57-w-sync-db:/var/lib/mysql
+      - mysql57-w-sync-db-init:/docker-entrypoint-initdb.d
+volumes:
+  mysql57-w-sync-db:
+    external: true
+  mysql57-w-sync-db-init:
+    external: true
