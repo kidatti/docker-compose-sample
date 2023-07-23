@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    container_name: php56-apache24
+    image: kidatti/php56-apache-buster
+    volumes:
+      - ./docker/php/php.ini:/etc/php/5.6/apache2/conf.d/php.ini
+      - ./src:/var/www/html
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+  db:
+    container_name: php56-apache24-mysql8
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "13306:3306"
+    volumes:
+      - ./docker/db.data:/var/lib/mysql
+      - ./docker/db.initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpass
+      MYSQL_AUTHENTICATION_PLUGIN: mysql_native_password
